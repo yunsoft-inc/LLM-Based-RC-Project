@@ -37,176 +37,54 @@ ChatGPT에게 이미지를 인식하고 설명하도록 명령을 했더니, 사
 
 고용량 배터리, 라즈베리파이, 아두이노, 스피커, 카메라를 모두 얹어서 RC카에 장착하니 무게로 인해 부하가 크게 걸려 제대로 움직이지 못하거나, 조금의 턱이 있으면 넘지를 못해 끼어버리는 문제가 있었다. 이러한 문제를 해결하기 위해 모터와 바퀴의 위치를 앞쪽으로 바꾸고, 후방에 볼캐스터를 추가 장착하여 안정성을 향상시켰다. 또한 무게중심도 안정적으로 조절하여 이동하고 정지할 때 관성으로 기우뚱거리는 문제도 해결했다.
 
-
 ## 작품을 만들면서 보람을 느낀점은 무엇인가?
 설계한 RC카가 계획 했던대로 잘 작동하니 보람을 느꼈다.
 주변 동아리 친구들에게 작품에 대한 피드백을 받으면서 내가 보완해야 할 점을 알게 되었기도 했지만, 작품을 잘 만들었다는 칭찬을 받을 때 보람을 느꼈다.
 
 ## 프로그램 개발 후 향후 진로에 미치는 영향
 ChatGPT와 같은 LLM과, ElevenLabs와 같은 음성 합성 AI 모델의 무궁무진한 활용 가능성을 보았고, 컴퓨터, 전기전자, 인공지능 관련 분야로 대학 진학을 해, 관련 기술을 더 깊이 있게 배워, 더 큰 프로젝트를 진행해보고 싶다는 생각이 들었다.
-> The overriding design goal for Markdown's
-> formatting syntax is to make it as readable
-> as possible. The idea is that a
-> Markdown-formatted document should be
-> publishable as-is, as plain text, without
-> looking like it's been marked up with tags
-> or formatting instructions.
 
-This text you see here is *actually- written in Markdown! To get a feel
-for Markdown's syntax, type some text into the left window and
-watch the results in the right.
+## 코드 설명
+1. motor.ino는 아두이노 코드 파일로 시리얼 입출력을 이용해 라즈베리파이가 모터를 조작할 수 있도록 함.
+2. 라즈베리파이가 구동하는 코드는 bootloader.py와 GPT.py임.
+   bootloader.py는 파이가 부팅 후 인터넷 연결이 끝나고 자동으로 실행됨. (자세한 건 아래에)
+   GPT.py는 bootloader.py가 실행시키는 코드로, 실제 동작에 사용되는 코드임. (자세한 건 아래에)
+3. index.html, app.js, style.css는 원격으로 제어를 편하게 하기 위해 Firebase 값들을 직관적으로 보고 실시간으로 상태를 모니터링 할 수 있도록 함.
+   ![img2](https://github.com/yunsoft-inc/LLM-Based-RC-Project/blob/main/con.png)
+4. prompt.txt는 GPT에게 줄 명령을 파일로 저장해 놓은 것으로 GPT.py와 같은 경로에 있어야 됨.
+5. rgb, depth.png는 GPT에게 사진을 보낼 때 임시로 저장되는 이미지.
 
-## Tech
+## 각 파일 별 기능 소개
+GPT.py : Realsense로 사진을 찍고 rgb와 depth이미지 생성 -> 가장 가까운 거리 측정 -> 프롬프트와 사진을 GPT에게 전송 -> 받은 값을 형식에 맞게 자른 후 -> Elevenlabs api를 이용해 TTS 구현 -> 무한 반복
 
-Dillinger uses a number of open source projects to work properly:
+bootloader.py : 시작되면 서버와 5초를 주기로 통신(온라인 상태 확인) -> 서버에서 시작 명령 감지 -> GPT.py 실행 또는 서버에서 중지 명령 감지 -> GPT.py 종료
 
-- [AngularJS] - HTML enhanced for web apps!
-- [Ace Editor] - awesome web-based text editor
-- [markdown-it] - Markdown parser done right. Fast and easy to extend.
-- [Twitter Bootstrap] - great UI boilerplate for modern web apps
-- [node.js] - evented I/O for the backend
-- [Express] - fast node.js network app framework [@tjholowaychuk]
-- [Gulp] - the streaming build system
-- [Breakdance](https://breakdance.github.io/breakdance/) - HTML
-to Markdown converter
-- [jQuery] - duh
+웹 서버 : 단순히 Firebase 값 조작용 UI
 
-And of course Dillinger itself is open source with a [public repository][dill]
- on GitHub.
+motor.ino : GPT.py와 통신 -> 명령 입력(EX : F,M,1) -> 모터 중간 속력으로 1만큼의 거리를 앞으로 전진 -> 완료 후 명령 이행했다는 시리얼 전송 -> 무한 반복
++ 배터리 전압, 모터 전압 실시간 확인 가능
 
-## Installation
+## 전체 프로세스
+1. 라즈베리파이 부팅
+2. 인터넷 연결
+3. bootloader.py 실행
+4. 사용자 입력 대기
+5. 서비스 명령 입력시 GPT.py 실행
+6. 자율 주행 시작
 
-Dillinger requires [Node.js](https://nodejs.org/) v10+ to run.
++ 이 과정들을 웹 서버로 모니터링 가능
 
-Install the dependencies and devDependencies and start the server.
+## 3D 모델 제작 비하인드
+https://www.youtube.com/@nikodembartnik
+이 분의 Open Robotics Platform 설계 사용
 
-```sh
-cd dillinger
-npm i
-node app
-```
+추가 수정 파츠 : TPU 출력이 안돼서 Petg로 출력 후 다이소 문 틈 스펀지를 붙임.
+Realsense D435용 마운트 설계 및 출력
+바퀴 위치 구조 변경 및 볼케스터 추가 장착
 
-For production environments...
-
-```sh
-npm install --production
-NODE_ENV=production node app
-```
-
-## Plugins
-
-Dillinger is currently extended with the following plugins.
-Instructions on how to use them in your own application are linked below.
-
-| Plugin | README |
-| ------ | ------ |
-| Dropbox | [plugins/dropbox/README.md][PlDb] |
-| GitHub | [plugins/github/README.md][PlGh] |
-| Google Drive | [plugins/googledrive/README.md][PlGd] |
-| OneDrive | [plugins/onedrive/README.md][PlOd] |
-| Medium | [plugins/medium/README.md][PlMe] |
-| Google Analytics | [plugins/googleanalytics/README.md][PlGa] |
-
-## Development
-
-Want to contribute? Great!
-
-Dillinger uses Gulp + Webpack for fast developing.
-Make a change in your file and instantaneously see your updates!
-
-Open your favorite Terminal and run these commands.
-
-First Tab:
-
-```sh
-node app
-```
-
-Second Tab:
-
-```sh
-gulp watch
-```
-
-(optional) Third:
-
-```sh
-karma test
-```
-
-#### Building for source
-
-For production release:
-
-```sh
-gulp build --prod
-```
-
-Generating pre-built zip archives for distribution:
-
-```sh
-gulp build dist --prod
-```
-
-## Docker
-
-Dillinger is very easy to install and deploy in a Docker container.
-
-By default, the Docker will expose port 8080, so change this within the
-Dockerfile if necessary. When ready, simply use the Dockerfile to
-build the image.
-
-```sh
-cd dillinger
-docker build -t <youruser>/dillinger:${package.json.version} .
-```
-
-This will create the dillinger image and pull in the necessary dependencies.
-Be sure to swap out `${package.json.version}` with the actual
-version of Dillinger.
-
-Once done, run the Docker image and map the port to whatever you wish on
-your host. In this example, we simply map port 8000 of the host to
-port 8080 of the Docker (or whatever port was exposed in the Dockerfile):
-
-```sh
-docker run -d -p 8000:8080 --restart=always --cap-add=SYS_ADMIN --name=dillinger <youruser>/dillinger:${package.json.version}
-```
-
-> Note: `--capt-add=SYS-ADMIN` is required for PDF rendering.
-
-Verify the deployment by navigating to your server address in
-your preferred browser.
-
-```sh
-127.0.0.1:8000
-```
-
-## License
-
-MIT
-
-**Free Software, Hell Yeah!**
-
-[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
-
-   [dill]: <https://github.com/joemccann/dillinger>
-   [git-repo-url]: <https://github.com/joemccann/dillinger.git>
-   [john gruber]: <http://daringfireball.net>
-   [df1]: <http://daringfireball.net/projects/markdown/>
-   [markdown-it]: <https://github.com/markdown-it/markdown-it>
-   [Ace Editor]: <http://ace.ajax.org>
-   [node.js]: <http://nodejs.org>
-   [Twitter Bootstrap]: <http://twitter.github.com/bootstrap/>
-   [jQuery]: <http://jquery.com>
-   [@tjholowaychuk]: <http://twitter.com/tjholowaychuk>
-   [express]: <http://expressjs.com>
-   [AngularJS]: <http://angularjs.org>
-   [Gulp]: <http://gulpjs.com>
-
-   [PlDb]: <https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md>
-   [PlGh]: <https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md>
-   [PlGd]: <https://github.com/joemccann/dillinger/tree/master/plugins/googledrive/README.md>
-   [PlOd]: <https://github.com/joemccann/dillinger/tree/master/plugins/onedrive/README.md>
-   [PlMe]: <https://github.com/joemccann/dillinger/tree/master/plugins/medium/README.md>
-   [PlGa]: <https://github.com/RahulHP/dillinger/blob/master/plugins/googleanalytics/README.md>
+사실 이 프로젝트의 영감도 이 사람에게 받았음.
+이 분의 프로젝트와 다른 점이라면, 
+1. 구조 개선으로 이동 가능한 바닥이 늘었음.
+2. Depth 이미지 까지 결합함으로써 장애물 회피 능력을 비약적으로 향상시킴.
+3. GPT 모델의 수준이 업그레이드 됨.
+4. 백엔드까지 구현을 함으로써 사용 편의성을 높임.
