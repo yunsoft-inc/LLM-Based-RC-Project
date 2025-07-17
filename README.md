@@ -3,6 +3,7 @@
 ## Hanyoung HighSchool 2025 Project
 
 ![Build Status](https://img.shields.io/badge/python-3776AB?style=flat-square&logo=html5&logoColor=000000)
+![img1](https://github.com/yunsoft-inc/LLM-Based-RC-Project/blob/main/rc.png)
 
 ## 개발 동기
 ChatGPT의 기술이 빠르게 발전하면서 다양한 기능들(이미지 설명, 실시간 대화 등)이 가능해졌음.
