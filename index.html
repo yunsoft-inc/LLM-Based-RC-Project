@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Controller Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+</head>
+<body>
+  <div id="statusBar">
+    <span id="onlineStatus"></span>
+  </div>
+  <h1>Controller Dashboard</h1>
+  <div>
+    <label>
+      Bootloader:
+      <input type="checkbox" id="bootloaderSwitch">
+      <span id="bootloaderStatus"></span>
+    </label>
+  </div>
+  <div>
+    <span>장비 상태: <span id="startStatus"></span></span>
+    <button onclick="setStart(-1)">종료</button>
+    <button onclick="setStart(0)">부트로더</button>
+    <button onclick="setStart(1)">서비스 시작</button>
+  </div>
+  <div class="image-row">
+    <div>
+      <h3>Depth Image</h3>
+      <img id="depthImg" width="200" alt="Depth">
+    </div>
+    <div>
+      <h3>RGB Image</h3>
+      <img id="rgbImg" width="200" alt="RGB">
+    </div>
+  </div>
+  <div>
+    <h3>로그</h3>
+    <button onclick="clearLog()">로그 초기화</button>
+    <div id="logBoxContainer">
+      <pre id="logBox"></pre>
+    </div>
+  </div>
+  <div>
+    <h3>프롬프트</h3>
+    <textarea id="promptInput" style="width:400px; height:80px;"></textarea>
+    <button onclick="updatePrompt()">수정</button>
+  </div>
+  <div>
+    <span>업데이트: <span id="updateTime"></span></span>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html> 
