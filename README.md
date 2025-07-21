@@ -1,4 +1,7 @@
 # LLM-Based RC Car with GPT & Firebase
+
+Last Update : 25.07.21 - 16:17:00
+
 ![header](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=10&height=200&text=LLM%20BASED%20SELF%20DRIVING%20CAR&fontSize=40&animation=twinkling&fontAlign=40&fontAlignY=36)
 # LLM 기반 자율 주행 자동차
 ## Hanyoung HighSchool 2025 Project
@@ -99,8 +102,8 @@ AI 기반 RC카를 직접 만들어보고 싶어 이 프로젝트를 시작했�
 ## 🎯 진로 및 영향
 
 - LLM, 음성 합성, IoT 시스템을 실생활에 적용해보며  
-  **인공지능과 전자공학의 융합 가능성**을 직접 체험
-- 이 경험을 계기로 **AI, 컴퓨터공학, 전기전자** 관련 학과 진학 목표 확립
+  **인공지능과 로봇공학의 융합 가능성**을 직접 체험
+- 이 경험을 계기로 **로봇공학, 컴퓨터공학, 전자공학** 관련 학과 진학 목표 확립
 
 ---
 
