@@ -1,8 +1,12 @@
 # LLM-Based RC Car with GPT & Firebase
+![header](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=10&height=200&text=LLM%20BASED%20SELF%20DRIVING%20CAR&fontSize=40&animation=twinkling&fontAlign=40&fontAlignY=36)
+# LLM 기반 자율 주행 자동차
+## Hanyoung HighSchool 2025 Project
+
+![Build Status](https://img.shields.io/badge/python-3776AB?style=flat-square&logo=html5&logoColor=000000)
+![img1](https://github.com/yunsoft-inc/LLM-Based-RC-Project/blob/main/rc.png)
 
 AI 기술의 발전에 따라, RC카에 ChatGPT와 TTS API를 연동하여 사람처럼 주행 명령을 이해하고, 주변을 인식하여 주행하는 자율 주행 시스템을 제작하였습니다.
-
-<img src="https://github.com/yunsoft-inc/LLM-Based-RC-Project/blob/main/con.png" width="600"/>
 
 ---
 
@@ -50,7 +54,7 @@ AI 기반 RC카를 직접 만들어보고 싶어 이 프로젝트를 시작했�
 5. 실시간 사진 촬영 → GPT 분석 → 음성 출력 및 RC카 주행
 6. 명령 완료 시 Arduino에서 'E' 응답 → 다음 명령 실행
 7. 웹에서 상태 실시간 모니터링 가능
-
+<img src="https://github.com/yunsoft-inc/LLM-Based-RC-Project/blob/main/con.png" width="600"/>
 ---
 
 ## 🧩 각 파일 설명
